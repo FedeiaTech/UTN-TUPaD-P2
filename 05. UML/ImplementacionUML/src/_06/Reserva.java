@@ -5,17 +5,12 @@ import java.util.Date;
 public class Reserva {
     private Date fecha;
     private String hora;
-    // Asociación unidireccional con Cliente
     private Cliente cliente;
-    // Agregación con Mesa
     private Mesa mesa;
 
-    public Reserva(Date fecha, String hora, Cliente cliente, Mesa mesa) {
+    public Reserva(Date fecha, String hora) {
         this.fecha = fecha;
         this.hora = hora;
-        // Se reciben las instancias ya creadas de Cliente y Mesa
-        this.cliente = cliente;
-        this.mesa = mesa;
     }
 
     // Getters y Setters
@@ -35,20 +30,22 @@ public class Reserva {
         this.hora = hora;
     }
     
-    public Cliente getCliente() {
-        return cliente;
-    }
-    
+    // Setter para la asociación unidireccional con Cliente
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
-    public Mesa getMesa() {
-        return mesa;
-    }
-    
+    // Setter para la agregación con Mesa
     public void setMesa(Mesa mesa) {
         this.mesa = mesa;
+    }
+    
+    public Cliente getCliente() {
+        return cliente;
+    }
+    
+    public Mesa getMesa() {
+        return mesa;
     }
     
     @Override
@@ -56,6 +53,8 @@ public class Reserva {
         return "Reserva{" +
                 "fecha=" + fecha +
                 ", hora='" + hora + '\'' +
+                ", cliente=" + (cliente != null ? cliente.getNombre() : "null") +
+                ", mesa=" + (mesa != null ? mesa.getNumero() : "null") +
                 '}';
     }
 }

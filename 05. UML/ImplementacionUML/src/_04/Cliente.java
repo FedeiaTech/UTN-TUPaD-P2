@@ -3,7 +3,6 @@ package _04;
 public class Cliente {
     private String nombre;
     private String dni;
-    // Referencia bidireccional a la TarjetaDeCrédito
     private TarjetaDeCredito tarjeta;
 
     public Cliente(String nombre, String dni) {
@@ -11,29 +10,27 @@ public class Cliente {
         this.dni = dni;
     }
 
-    // Getters y Setters
+    // Getters
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getDni() {
         return dni;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
     public TarjetaDeCredito getTarjeta() {
         return tarjeta;
     }
 
+    // Setter para la relación bidireccional
     public void setTarjeta(TarjetaDeCredito tarjeta) {
-        this.tarjeta = tarjeta;
+        if (this.tarjeta != tarjeta) {
+            this.tarjeta = tarjeta;
+            if (tarjeta != null) {
+                tarjeta.setCliente(this);
+            }
+        }
     }
 
     @Override
@@ -41,6 +38,7 @@ public class Cliente {
         return "Cliente{" +
                 "nombre='" + nombre + '\'' +
                 ", dni='" + dni + '\'' +
+                ", tarjeta=" + (tarjeta != null ? tarjeta.getNumero() : "null") +
                 '}';
     }
 }

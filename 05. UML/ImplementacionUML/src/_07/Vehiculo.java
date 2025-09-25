@@ -3,18 +3,12 @@ package _07;
 public class Vehiculo {
     private String patente;
     private String modelo;
-    // Agregación: el Vehículo tiene una referencia a un objeto Motor ya existente
     private Motor motor;
-    // Asociación bidireccional: el Vehículo tiene una referencia a un Conductor
     private Conductor conductor;
 
-    public Vehiculo(String patente, String modelo, Motor motor, Conductor conductor) {
+    public Vehiculo(String patente, String modelo) {
         this.patente = patente;
         this.modelo = modelo;
-        this.motor = motor; // Se recibe el objeto Motor para la agregación
-        this.conductor = conductor;
-        // Establecer la relación bidireccional en el objeto Conductor
-        this.conductor.setVehiculo(this);
     }
 
     // Getters y Setters
@@ -34,20 +28,26 @@ public class Vehiculo {
         this.modelo = modelo;
     }
 
-    public Motor getMotor() {
-        return motor;
-    }
-
+    // Setter para la agregación con Motor
     public void setMotor(Motor motor) {
         this.motor = motor;
     }
 
-    public Conductor getConductor() {
-        return conductor;
+    public void setConductor(Conductor conductor) {
+        if (this.conductor != conductor) {
+            this.conductor = conductor;
+            if (conductor != null) {
+                conductor.setVehiculo(this);
+            }
+        }
+    }
+    
+    public Motor getMotor() {
+        return motor;
     }
 
-    public void setConductor(Conductor conductor) {
-        this.conductor = conductor;
+    public Conductor getConductor() {
+        return conductor;
     }
     
     @Override
@@ -55,6 +55,8 @@ public class Vehiculo {
         return "Vehiculo{" +
                 "patente='" + patente + '\'' +
                 ", modelo='" + modelo + '\'' +
+                ", motor=" + (motor != null ? motor.getNumeroSerie() : "null") +
+                ", conductor=" + (conductor != null ? conductor.getNombre() : "null") +
                 '}';
     }
 }

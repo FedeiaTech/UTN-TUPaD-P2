@@ -5,16 +5,12 @@ import java.util.Date;
 public class CitaMedica {
     private Date fecha;
     private String hora;
-    // Asociación unidireccional a Paciente
     private Paciente paciente;
-    // Asociación unidireccional a Profesional
     private Profesional profesional;
 
-    public CitaMedica(Date fecha, String hora, Paciente paciente, Profesional profesional) {
+    public CitaMedica(Date fecha, String hora) {
         this.fecha = fecha;
         this.hora = hora;
-        this.paciente = paciente;
-        this.profesional = profesional;
     }
     
     // Getters y Setters
@@ -34,6 +30,7 @@ public class CitaMedica {
         this.hora = hora;
     }
     
+    // Setter para la asociación unidireccional
     public Paciente getPaciente() {
         return paciente;
     }
@@ -42,6 +39,7 @@ public class CitaMedica {
         this.paciente = paciente;
     }
     
+    // Setter para la asociación unidireccional con profesional
     public Profesional getProfesional() {
         return profesional;
     }
@@ -55,6 +53,8 @@ public class CitaMedica {
         return "CitaMedica{" +
                 "fecha=" + fecha +
                 ", hora='" + hora + '\'' +
+                ", paciente=" + (paciente != null ? paciente.getNombre() : "null") +
+                ", profesional=" + (profesional != null ? profesional.getNombre() : "null") +
                 '}';
     }
 }

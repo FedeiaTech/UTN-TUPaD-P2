@@ -5,20 +5,12 @@ import java.util.Date;
 public class CuentaBancaria {
     private String cbu;
     private double saldo;
-    // Composición: la CuentaBancaria contiene la ClaveSeguridad
     private ClaveSeguridad clave;
-    // Asociación bidireccional: la CuentaBancaria tiene un Titular
     private Titular titular;
 
-    public CuentaBancaria(String cbu, double saldo, String codigoClave, Date fechaClave, Titular titular) {
+    public CuentaBancaria(String cbu, double saldo) {
         this.cbu = cbu;
         this.saldo = saldo;
-        // La ClaveSeguridad se crea dentro del constructor de CuentaBancaria (composición)
-        this.clave = new ClaveSeguridad(codigoClave, fechaClave);
-        // Se recibe el objeto Titular
-        this.titular = titular;
-        // Se establece la relación bidireccional en el objeto Titular
-        this.titular.setCuenta(this);
     }
 
     // Getters y Setters
@@ -38,18 +30,27 @@ public class CuentaBancaria {
         this.saldo = saldo;
     }
 
+    // Setter para la composición
+    public void setClave(ClaveSeguridad clave) {
+        this.clave = clave;
+    }
+
+    // Setter para la asociación bidireccional
+    public void setTitular(Titular titular) {
+        if (this.titular != titular) {
+            this.titular = titular;
+            if (titular != null) {
+                titular.setCuenta(this);
+            }
+        }
+    }
+
     public ClaveSeguridad getClave() {
         return clave;
     }
-    
-    // En composición, no se suele tener un setter para el objeto contenido
 
     public Titular getTitular() {
         return titular;
-    }
-
-    public void setTitular(Titular titular) {
-        this.titular = titular;
     }
 
     @Override
@@ -57,6 +58,8 @@ public class CuentaBancaria {
         return "CuentaBancaria{" +
                 "cbu='" + cbu + '\'' +
                 ", saldo=" + saldo +
+                ", clave=" + (clave != null ? clave.getCodigo() : "null") +
+                ", titular=" + (titular != null ? titular.getNombre() : "null") +
                 '}';
     }
 }

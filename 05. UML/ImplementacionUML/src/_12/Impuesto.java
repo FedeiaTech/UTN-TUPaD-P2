@@ -2,12 +2,11 @@ package _12;
 
 public class Impuesto {
     private double monto;
-    // Asociación unidireccional a Contribuyente
+    // Asociación unidireccional
     private Contribuyente contribuyente;
 
-    public Impuesto(double monto, Contribuyente contribuyente) {
+    public Impuesto(double monto) {
         this.monto = monto;
-        this.contribuyente = contribuyente;
     }
 
     // Getters y Setters
@@ -23,6 +22,7 @@ public class Impuesto {
         return contribuyente;
     }
 
+    // Setter para la asociación unidireccional
     public void setContribuyente(Contribuyente contribuyente) {
         this.contribuyente = contribuyente;
     }

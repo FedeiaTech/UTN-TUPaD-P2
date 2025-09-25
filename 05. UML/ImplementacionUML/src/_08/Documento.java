@@ -1,18 +1,14 @@
 package _08;
 
-import java.util.Date;
-
 public class Documento {
     private String titulo;
     private String contenido;
-    // Composición: el Documento contiene a la FirmaDigital
+    // Composición: 
     private FirmaDigital firmaDigital;
 
-    public Documento(String titulo, String contenido, String codigoHash, Date fecha, Usuario usuario) {
+    public Documento(String titulo, String contenido) {
         this.titulo = titulo;
         this.contenido = contenido;
-        // La FirmaDigital se crea dentro del constructor de Documento (composición)
-        this.firmaDigital = new FirmaDigital(codigoHash, fecha, usuario);
     }
     
     // Getters y Setters
@@ -36,15 +32,17 @@ public class Documento {
         return firmaDigital;
     }
     
-    // No se implementa un setter para la composición, ya que la firma no se reemplaza
-    // de forma independiente.
+    // Setter para la composición, 
+    public void setFirmaDigital(FirmaDigital firmaDigital) {
+        this.firmaDigital = firmaDigital;
+    }
     
     @Override
     public String toString() {
         return "Documento{" +
                 "titulo='" + titulo + '\'' +
                 ", contenido='" + contenido + '\'' +
-                ", firmaDigital=" + firmaDigital.getCodigoHash() +
+                ", firmaDigital=" + (firmaDigital != null ? firmaDigital.getCodigoHash() : "null") +
                 '}';
     }
 }

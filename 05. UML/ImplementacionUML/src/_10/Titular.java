@@ -3,7 +3,6 @@ package _10;
 public class Titular {
     private String nombre;
     private String dni;
-    // Referencia bidireccional a la CuentaBancaria
     private CuentaBancaria cuenta;
 
     public Titular(String nombre, String dni) {
@@ -28,12 +27,18 @@ public class Titular {
         this.dni = dni;
     }
 
-    public CuentaBancaria getCuenta() {
-        return cuenta;
+    // Setter para la relación bidireccional
+    public void setCuenta(CuentaBancaria cuenta) {
+        if (this.cuenta != cuenta) {
+            this.cuenta = cuenta;
+            if (cuenta != null) {
+                cuenta.setTitular(this);
+            }
+        }
     }
 
-    public void setCuenta(CuentaBancaria cuenta) {
-        this.cuenta = cuenta;
+    public CuentaBancaria getCuenta() {
+        return cuenta;
     }
 
     @Override
@@ -41,6 +46,7 @@ public class Titular {
         return "Titular{" +
                 "nombre='" + nombre + '\'' +
                 ", dni='" + dni + '\'' +
+                ", cuenta=" + (cuenta != null ? cuenta.getCbu() : "null") +
                 '}';
     }
 }

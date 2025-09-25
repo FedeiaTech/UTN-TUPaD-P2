@@ -5,13 +5,11 @@ import java.util.Date;
 public class FirmaDigital {
     private String codigoHash;
     private Date fecha;
-    // Agregación: la FirmaDigital tiene una referencia a un Usuario
     private Usuario usuario;
 
-    public FirmaDigital(String codigoHash, Date fecha, Usuario usuario) {
+    public FirmaDigital(String codigoHash, Date fecha) {
         this.codigoHash = codigoHash;
         this.fecha = fecha;
-        this.usuario = usuario; // Se recibe la instancia de Usuario para la agregación
     }
 
     // Getters y Setters
@@ -35,6 +33,7 @@ public class FirmaDigital {
         return usuario;
     }
 
+    // Setter para la agregación, 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
@@ -44,6 +43,7 @@ public class FirmaDigital {
         return "FirmaDigital{" +
                 "codigoHash='" + codigoHash + '\'' +
                 ", fecha=" + fecha +
+                ", usuario=" + (usuario != null ? usuario.getNombre() : "null") +
                 '}';
     }
 }

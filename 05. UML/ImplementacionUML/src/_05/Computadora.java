@@ -3,20 +3,13 @@ package _05;
 public class Computadora {
     private String marca;
     private String numeroSerie;
-    // Composición: la PlacaMadre es una parte intrínseca
     private PlacaMadre placaMadre;
-    // Asociación bidireccional con el Propietario
     private Propietario propietario;
     
-    public Computadora(String marca, String numeroSerie, String modeloPlaca, String chipsetPlaca, Propietario propietario) {
+    // El constructor ahora solo inicializa sus propios atributos
+    public Computadora(String marca, String numeroSerie) {
         this.marca = marca;
         this.numeroSerie = numeroSerie;
-        // La PlacaMadre se crea dentro del constructor de Computadora (composición)
-        this.placaMadre = new PlacaMadre(modeloPlaca, chipsetPlaca);
-        // Se recibe el objeto Propietario
-        this.propietario = propietario;
-        // Se establece la referencia bidireccional en el objeto Propietario
-        this.propietario.setComputadora(this);
     }
     
     // Getters y Setters
@@ -36,20 +29,27 @@ public class Computadora {
         this.numeroSerie = numeroSerie;
     }
 
-    public PlacaMadre getPlacaMadre() {
-        return placaMadre;
-    }
-
+    // Setter para la composición con PlacaMadre
     public void setPlacaMadre(PlacaMadre placaMadre) {
         this.placaMadre = placaMadre;
     }
 
-    public Propietario getPropietario() {
-        return propietario;
+    public void setPropietario(Propietario propietario) {
+        // Evita el bucle infinito
+        if (this.propietario != propietario) {
+            this.propietario = propietario;
+            if (propietario != null) {
+                propietario.setComputadora(this);
+            }
+        }
+    }
+    
+    public PlacaMadre getPlacaMadre() {
+        return placaMadre;
     }
 
-    public void setPropietario(Propietario propietario) {
-        this.propietario = propietario;
+    public Propietario getPropietario() {
+        return propietario;
     }
     
     @Override
@@ -57,6 +57,8 @@ public class Computadora {
         return "Computadora{" +
                 "marca='" + marca + '\'' +
                 ", numeroSerie='" + numeroSerie + '\'' +
+                ", placaMadre=" + (placaMadre != null ? placaMadre.getModelo() : "null") +
+                ", propietario=" + (propietario != null ? propietario.getNombre() : "null") +
                 '}';
     }
 }

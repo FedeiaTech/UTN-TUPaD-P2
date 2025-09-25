@@ -3,7 +3,6 @@ package _02;
 public class Usuario {
     private String nombre;
     private String dni;
-    // Referencia bidireccional al Celular
     private Celular celular;
 
     public Usuario(String nombre, String dni) {
@@ -11,7 +10,7 @@ public class Usuario {
         this.dni = dni;
     }
 
-    // Getters y Setters
+    // Setters
     public String getNombre() {
         return nombre;
     }
@@ -28,12 +27,20 @@ public class Usuario {
         this.dni = dni;
     }
     
-    public Celular getCelular() {
-        return celular;
+    // Setter para la asociación bidireccional con Celular
+    public void setCelular(Celular celular) {
+        // Evita un bucle infinito
+        if (this.celular != celular) {
+            this.celular = celular;
+            if (celular != null) {
+                celular.setUsuario(this);
+            }
+        }
     }
     
-    public void setCelular(Celular celular) {
-        this.celular = celular;
+    // Getters y toString
+    public Celular getCelular() {
+        return celular;
     }
     
     @Override
@@ -41,8 +48,7 @@ public class Usuario {
         return "Usuario{" +
                 "nombre='" + nombre + '\'' +
                 ", dni='" + dni + '\'' +
+                ", celular=" + (celular != null ? celular.getModelo() : "null") +
                 '}';
     }
-
-
 }

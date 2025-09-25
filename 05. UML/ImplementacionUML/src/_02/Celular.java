@@ -4,23 +4,16 @@ public class Celular {
     private String imei;
     private String marca;
     private String modelo;
-    // Agregación: el Celular tiene una referencia a un objeto Batería,
-    // que puede existir de forma independiente.
     private Bateria bateria;
-    // Asociación bidireccional: un Celular tiene un Usuario.
     private Usuario usuario;
-    
-    public Celular(String imei, String marca, String modelo, Bateria bateria, Usuario usuario) {
+
+    public Celular(String imei, String marca, String modelo) {
         this.imei = imei;
         this.marca = marca;
         this.modelo = modelo;
-        this.bateria = bateria; // Se recibe el objeto Bateria ya creado
-        this.usuario = usuario;
-        // Establecer la relación bidireccional en el objeto Usuario
-        this.usuario.setCelular(this);
     }
-    
-    // Getters y Setters
+
+    // Setters
     public String getImei() {
         return imei;
     }
@@ -45,28 +38,38 @@ public class Celular {
         this.modelo = modelo;
     }
 
-    public Bateria getBateria() {
-        return bateria;
-    }
-
+    // Setter para la asociación de agregación con Bateria
     public void setBateria(Bateria bateria) {
         this.bateria = bateria;
+    }
+
+    // Setter para la asociación bidireccional con Usuario
+    public void setUsuario(Usuario usuario) {
+        if (this.usuario != usuario) {
+            this.usuario = usuario;
+            if (usuario != null) {
+                usuario.setCelular(this);
+            }
+        }
+    }
+
+    // Getters y toString
+    public Bateria getBateria() {
+        return bateria;
     }
 
     public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-    
     @Override
     public String toString() {
         return "Celular{" +
                 "imei='" + imei + '\'' +
                 ", marca='" + marca + '\'' +
                 ", modelo='" + modelo + '\'' +
+                ", bateria=" + (bateria != null ? bateria.getModelo() : "null") +
+                ", usuario=" + (usuario != null ? usuario.getNombre() : "null") +
                 '}';
     }
 }

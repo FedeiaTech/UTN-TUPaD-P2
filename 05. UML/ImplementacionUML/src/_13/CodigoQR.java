@@ -5,17 +5,22 @@ public class CodigoQR {
     // Asociación unidireccional a Usuario
     private Usuario usuario;
 
-    public CodigoQR(String valor, Usuario usuario) {
+    // El constructor ahora solo inicializa sus propios atributos
+    public CodigoQR(String valor) {
         this.valor = valor;
-        this.usuario = usuario;
     }
 
-    // Getters
+    // Getters y Setters
     public String getValor() {
         return valor;
     }
 
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    // Setter para la asociación unidireccional
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

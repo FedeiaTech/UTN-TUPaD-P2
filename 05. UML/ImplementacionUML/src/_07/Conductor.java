@@ -3,7 +3,6 @@ package _07;
 public class Conductor {
     private String nombre;
     private String licencia;
-    // Referencia bidireccional al Vehículo
     private Vehiculo vehiculo;
 
     public Conductor(String nombre, String licencia) {
@@ -28,12 +27,18 @@ public class Conductor {
         this.licencia = licencia;
     }
 
-    public Vehiculo getVehiculo() {
-        return vehiculo;
+    // Setter para la relación bidireccional con Vehiculo
+    public void setVehiculo(Vehiculo vehiculo) {
+        if (this.vehiculo != vehiculo) {
+            this.vehiculo = vehiculo;
+            if (vehiculo != null) {
+                vehiculo.setConductor(this);
+            }
+        }
     }
 
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
+    public Vehiculo getVehiculo() {
+        return vehiculo;
     }
 
     @Override
@@ -41,6 +46,7 @@ public class Conductor {
         return "Conductor{" +
                 "nombre='" + nombre + '\'' +
                 ", licencia='" + licencia + '\'' +
+                ", vehiculo=" + (vehiculo != null ? vehiculo.getPatente() : "null") +
                 '}';
     }
 }

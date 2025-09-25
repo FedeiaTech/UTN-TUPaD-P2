@@ -10,29 +10,36 @@ public class Titular {
         this.dni = dni;
     }
 
-    // Getters y Setters
-    public String getNombre() {
-        return nombre;
-    }
-
+    // Setters
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getDni() {
-        return dni;
     }
 
     public void setDni(String dni) {
         this.dni = dni;
     }
 
-    public Pasaporte getPasaporte() {
-        return pasaporte;
+    // Método para establecer la asociación bidireccional con Pasaporte
+    public void setPasaporte(Pasaporte pasaporte) {
+         if (this.pasaporte != pasaporte) {
+            this.pasaporte = pasaporte;
+            if (pasaporte != null) {
+                pasaporte.setTitular(this);
+            }
+        }
     }
 
-    public void setPasaporte(Pasaporte pasaporte) {
-        this.pasaporte = pasaporte;
+    // Getters y toString...
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public Pasaporte getPasaporte() {
+        return pasaporte;
     }
 
     @Override
@@ -40,6 +47,7 @@ public class Titular {
         return "Titular{" +
                 "nombre='" + nombre + '\'' +
                 ", dni='" + dni + '\'' +
+                ", pasaporte=" + (pasaporte != null ? pasaporte.getNumero() : "null") +
                 '}';
     }
 }

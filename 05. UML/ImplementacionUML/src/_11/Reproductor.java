@@ -1,9 +1,14 @@
 package _11;
 
 public class Reproductor {
-    // Dependencia de uso: el método reproducir() utiliza un objeto Cancion
+    // Dependencia de uso:
     public void reproducir(Cancion cancion) {
         System.out.println("Reproduciendo: " + cancion.getTitulo());
-        System.out.println("Artista: " + cancion.getArtista().getNombre());
+        // Se valida si el artista existe antes de acceder a sus métodos
+        if (cancion.getArtista() != null) {
+            System.out.println("Artista: " + cancion.getArtista().getNombre());
+        } else {
+            System.out.println("Artista: Desconocido");
+        }
     }
 }

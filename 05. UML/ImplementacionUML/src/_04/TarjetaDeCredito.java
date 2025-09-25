@@ -5,20 +5,13 @@ import java.util.Date;
 public class TarjetaDeCredito {
     private String numero;
     private Date fechaVencimiento;
-    // Asociación bidireccional: una TarjetaDeCrédito tiene un Cliente
     private Cliente cliente;
-    // Agregación: una TarjetaDeCrédito está asociada a un Banco
     private Banco banco;
 
-    public TarjetaDeCredito(String numero, Date fechaVencimiento, Cliente cliente, Banco banco) {
+    // El constructor ahora solo inicializa sus propios atributos
+    public TarjetaDeCredito(String numero, Date fechaVencimiento) {
         this.numero = numero;
         this.fechaVencimiento = fechaVencimiento;
-        // Se recibe el objeto Cliente
-        this.cliente = cliente;
-        // Se recibe el objeto Banco (agregación)
-        this.banco = banco;
-        // Establecer la relación bidireccional en el objeto Cliente
-        this.cliente.setTarjeta(this);
     }
 
     // Getters y Setters
@@ -38,27 +31,37 @@ public class TarjetaDeCredito {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    // Setter para la asociación bidireccional
+    public void setCliente(Cliente cliente) {
+        // Evita el bucle infinito
+        if (this.cliente != cliente) {
+            this.cliente = cliente;
+            if (cliente != null) {
+                cliente.setTarjeta(this);
+            }
+        }
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    // Setter para la agregación con Banco
+    public void setBanco(Banco banco) {
+        this.banco = banco;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
     }
 
     public Banco getBanco() {
         return banco;
     }
 
-    public void setBanco(Banco banco) {
-        this.banco = banco;
-    }
-
     @Override
     public String toString() {
-        return "TarjetaDeCrédito{" +
+        return "TarjetaDeCredito{" +
                 "numero='" + numero + '\'' +
                 ", fechaVencimiento=" + fechaVencimiento +
+                ", cliente=" + (cliente != null ? cliente.getNombre() : "null") +
+                ", banco=" + (banco != null ? banco.getNombre() : "null") +
                 '}';
     }
 }

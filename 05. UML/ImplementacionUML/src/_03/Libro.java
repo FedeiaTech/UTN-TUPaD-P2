@@ -3,18 +3,12 @@ package _03;
 public class Libro {
     private String titulo;
     private String isbn;
-    // Asociación unidireccional con Autor
     private Autor autor;
-    // Agregación con Editorial
     private Editorial editorial;
 
-    public Libro(String titulo, String isbn, Autor autor, Editorial editorial) {
+    public Libro(String titulo, String isbn) {
         this.titulo = titulo;
         this.isbn = isbn;
-        // Se recibe el objeto Autor
-        this.autor = autor;
-        // Se recibe el objeto Editorial (agregación)
-        this.editorial = editorial;
     }
     
     // Getters y Setters
@@ -34,20 +28,22 @@ public class Libro {
         this.isbn = isbn;
     }
     
-    public Autor getAutor() {
-        return autor;
-    }
-    
+    // Setter para la asociación unidireccional con Autor
     public void setAutor(Autor autor) {
         this.autor = autor;
     }
     
-    public Editorial getEditorial() {
-        return editorial;
-    }
-    
+    // Setter para la agregación con Editorial
     public void setEditorial(Editorial editorial) {
         this.editorial = editorial;
+    }
+    
+    public Autor getAutor() {
+        return autor;
+    }
+    
+    public Editorial getEditorial() {
+        return editorial;
     }
     
     @Override
@@ -55,8 +51,8 @@ public class Libro {
         return "Libro{" +
                 "titulo='" + titulo + '\'' +
                 ", isbn='" + isbn + '\'' +
-                ", autor=" + autor.getNombre() +
-                ", editorial=" + editorial.getNombre() +
+                ", autor=" + (autor != null ? autor.getNombre() : "null") +
+                ", editorial=" + (editorial != null ? editorial.getNombre() : "null") +
                 '}';
     }
 }
